@@ -1,5 +1,7 @@
 .PHONY:clean check
 
+ITEM_NAME=main
+
 #---- Compiler Methods ---------------------------------------------------------#
 WARNOPT= -Wall                   \
 		 -Wno-return-type        \
@@ -17,7 +19,6 @@ CFLAGS= $(WARNOPT) $(OPTIMIZE) $(DBGOPT) $(SYSTEM_LINK) $(STANDARD)
 
 
 #----- File-Resources ------------------------------------------------------#
-ITEM_NAME=main
 #SRC_POSTFIX=$(shell ls *.cpp &> /dev/null && printf .cpp || printf .c) 
 SRC_POSTFIX=.cpp
 SRC=$(shell ls *$(SRC_POSTFIX) 2> /dev/null)

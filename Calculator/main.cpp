@@ -2,10 +2,9 @@
 #include "Parse.h"
 #include "Cmd.h"
 
-
 void input_expression (std::string& expr);
 
-int main ()
+int main (int argc, const char** argv)
 {
 	std::string expression;
 
@@ -29,7 +28,8 @@ int main ()
 			continue;
 		}
 
-		std::cout << Parse_Result() << std::endl;
+		if (!parse_assigned_active)
+			std::cout << Parse_Result() << std::endl;
 	}
 }
 

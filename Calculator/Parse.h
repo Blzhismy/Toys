@@ -21,5 +21,6 @@ extern float Result_;
 
 extern bool assigned;                //检测到等号
 
+extern bool parse_assigned_active;          
 
 #endif // PARSE_H

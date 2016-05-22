@@ -6,15 +6,16 @@
 
 bool error_happened_ = false;
 float parse_result_ = 0;
-bool assigned = false;          
+bool parse_assigned_active = false;          
 
 void Parser_Init(const char* expression)
 {
 	assert(expression);
+	assert(*expression != '\0');
 	Scanner_Init (expression);
 
 	error_happened_ = false;
-	assigned = false;
+	parse_assigned_active = false;
 }
 
 bool Error_Happened ()
@@ -171,14 +172,14 @@ Node* Expr()
 		}
 		else if (result == eAssign)
 		{
-			if (PreviousNode->type != tVariable or assigned)
+			if (PreviousNode->type != tVariable or parse_assigned_active )
 			{
 				std::cout << __FILE__ << " " << __LINE__ << " " << "Syntax Error."<< std::endl;
 				error_happened_ = true;
 				return NULL;    
 			}
 
-			assigned = true;
+			parse_assigned_active= true;
 			char symbol = current_symbol;
 
 			Scan_Forward ();
@@ -198,6 +199,11 @@ Node* Expr()
 		}
 		else if (result == eEnd or result == eRightBracket)
 		{
+			if (last_result == eEnd or (PreviousNode->next1 != NULL and PreviousNode->next2 == NULL))
+			{
+				std::cout << "Syntax Error."<< std::endl;
+				error_happened_ = true;
+			}
 			return PreviousNode;
 		}
 		else
@@ -327,6 +333,7 @@ Node* Term()
 			node->index = 1;
 
 			node->next1 = PreviousNode;
+			node->next2 = NULL;
 			PreviousNode = node;
 		}
 		else if (result == eDivision)
@@ -344,6 +351,7 @@ Node* Term()
 			node->index = 1;
 
 			node->next1 = PreviousNode;
+			node->next2 = NULL;
 			PreviousNode = node;
 		}
 		else if (result == eLeftBracket)
@@ -439,6 +447,12 @@ Node* Term()
 		//  }
 		else
 		{
+			if (last_result == eEnd or (PreviousNode->next1 != NULL and PreviousNode->next2 == NULL))
+			{
+				std::cout << "Syntax Error." << std::endl;
+				error_happened_ = true;
+				return NULL;
+			}
 			return PreviousNode;
 		}
 
