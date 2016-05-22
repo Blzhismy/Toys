@@ -5,7 +5,7 @@
 
 void input_expression (std::string& expr);
 
-int main (int argc, const char** argv)
+int main ()
 {
 	std::string expression;
 
