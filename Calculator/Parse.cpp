@@ -365,16 +365,16 @@ Node* Term()
 
 			Scan_Forward ();
 			Node* node = Expr();
+			if (node == NULL)
+			{
+				return NULL;
+			}
 			result = Scan_Result ();
 			if (result != eRightBracket )
 			{
 				std::cout << __LINE__ << " " << "Syntax Error."<< std::endl;
 				error_happened_ = true;
 				return NULL;  
-			}
-			if (node == NULL)
-			{
-				return NULL;
 			}
 
 			if (last_result == eEnd)
