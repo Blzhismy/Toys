@@ -294,7 +294,7 @@ Node* Term()
 				}
 				else
 				{
-					if (next != eAdd and next != eSubtract and next != eMultiply and next != eDivision)
+					if (next != eAdd and next != eSubtract and next != eMultiply and next != eDivision and next != eEnd and next != eRightBracket)
 					{
 						std::cout << "Syntax Error."<< std::endl;
 					}
@@ -374,8 +374,6 @@ Node* Term()
 			}
 			if (node == NULL)
 			{
-				std::cout << __LINE__ << " " << "Syntax Error."<< std::endl;
-				error_happened_ = true;
 				return NULL;
 			}
 
